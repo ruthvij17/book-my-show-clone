@@ -1,0 +1,46 @@
+Book mys how clone
+    >> React
+    >> Tailwind
+    >> React-slick (Carousel)
+    >> React-context-API (state management -react)
+    >> Headless-UI
+
+
+
+Pages:                                            HOC's
+    >> Home.Page.jsx                       Default.HOC.jsx
+    >> Movie.Page.jsx                      Movie.HOC.jsx
+    >> Play.page.jsx                       Default.HOC.jsx
+
+
+Components:
+    >> Cast                     Cast.component.jsx
+    >> Entertainment            EntertainmentCard.component.jsx
+    >> HeroCarouse              HeroCarousel.Component.jsx
+                                Arrows.Component.jsx
+    >> MovieHero                MovieHero.Component.jsx
+                                MovieInfo.Component.jsx
+    >> Navbar                   MovieNavBar.Component.jsx   
+                                Navbar.Component.jsx
+    >> PaymentModel             PayFilter.Component.jsx
+    >> Poster                   Poster.Component.jsx
+    >> PosterSlider             PosterSlider.Component.jsx     
+
+
+    Tailwind                    https://tailwindcss.com                                               
+    >> npm install -D tailwindcss postcss autoprefixer
+    >> npx tailwindcss init
+    
+
+    React-slick
+    >> npm install react-slick
+    >> import files
+
+    Axios:
+    >> npm i axios
+
+    Headless UI:
+    >> npm install @headlessui/react
+
+    React icons:
+    >> npm install react-icons
