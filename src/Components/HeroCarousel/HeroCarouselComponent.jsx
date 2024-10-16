@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import HeroSlider from "react-slick";
+import { NextArrow } from "./ArrowsComponent";
+import { PrevArrow } from "./ArrowsComponent";
 
 const HeroCarousel = () => {
   const [images, setImages] = useState([
@@ -37,6 +39,57 @@ const HeroCarousel = () => {
       vote_average: 7.4,
       vote_count: 346,
     },
+    {
+      adult: false,
+      backdrop_path: "/JZIYaISP3GBSrVOPfrp98AMa8Ng.jpg",
+      genre_ids: [16, 35, 10751, 14, 10749],
+      id: 976573,
+      original_language: "en",
+      original_title: "Elemental",
+      overview:
+        "In a city where fire, water, land and air residents live together",
+      popularity: 6731.327,
+      poster_path: "/4Y1WNkd88JXmGfhtWR7dmDAo1T2.jpg",
+      release_date: "2022-08-11",
+      title: "Fall",
+      video: false,
+      vote_average: 7.4,
+      vote_count: 346,
+    },
+    {
+      adult: false,
+      backdrop_path: "/hZ1E1qS5ZCmbgHX6Th1RQLFqqCz.jpg",
+      genre_ids: [28, 12, 878],
+      id: 101,
+      original_language: "en",
+      original_title: "The Matrix Resurrections",
+      overview:
+        "In a world where reality is a simulated construct, Neo is drawn back to the Matrix to confront a new threat and discover the truth about his past.",
+      popularity: 7890.123,
+      poster_path: "/9m6V1zM1uj5gmcwxVzt2c8e1KHK.jpg",
+      release_date: "2021-12-22",
+      title: "The Matrix Resurrections",
+      video: false,
+      vote_average: 6.5,
+      vote_count: 1500,
+    },
+    {
+      adult: false,
+      backdrop_path: "/4j3yZzD9D4j6m6UVqDB9hxVg8xR.jpg",
+      genre_ids: [28, 35, 878],
+      id: 102,
+      original_language: "en",
+      original_title: "Free Guy",
+      overview:
+        "A bank teller discovers he is actually a background character in an open-world video game and decides to become the hero of his own story.",
+      popularity: 6453.456,
+      poster_path: "/9G9uD8wiZ12xKscB2T9WgA6v2Z.jpg",
+      release_date: "2021-08-13",
+      title: "Free Guy",
+      video: false,
+      vote_average: 7.2,
+      vote_count: 2300,
+    },
   ]);
   const settingsLG = {
     dots: true,
@@ -45,8 +98,10 @@ const HeroCarousel = () => {
     infinite: true,
     speed: 500,
     slideToScroll: 1,
-    // nextArrow: ,
-    // prevArrow: ,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
   const settings = {
     dots: true,
@@ -55,34 +110,38 @@ const HeroCarousel = () => {
     infinite: true,
     speed: 500,
     slideToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
   return (
     <>
-      <div className="lg:hidden" {...settings}>
+      <div className="lg:hidden">
         <HeroSlider>
           {images.map((image) => {
             return (
               <div className="w-full h-56 md:h-80 py-3">
                 <img
-                  src={`https://image.tmdb.org/t/p/original${images.backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/original${image.backdrop_path}`}
                   alt="Hero banner"
                   className="w-full h-full rounded-md object-cover"
-                ></img>
+                />
               </div>
             );
           })}
         </HeroSlider>
       </div>
       <div className="hidden lg:block">
-        <HeroSlider>
+        <HeroSlider {...settingsLG}>
           {images.map((image) => {
             return (
-              <div className="w-full h-56 md:h-80 py-3">
+              <div className="w-full h-96 px-2 py-3">
                 <img
-                  src={`https://image.tmdb.org/t/p/original${images.backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/original${image.backdrop_path}`}
                   alt="Hero banner"
                   className="w-full h-full rounded-md object-cover"
-                ></img>
+                />
               </div>
             );
           })}
