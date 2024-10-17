@@ -39,7 +39,7 @@ function NavLg() {
           <div className="w-10 h-10">
             <img
               className="w-full h-full"
-              src="https://images.yourstory.com/cs/images/companies/logosC2421575978193576png?fm=auto&ar=1:1&mode=fill&fill=solid&fill-color=fff&format=auto&w=1920&q=75"
+              src="https://i.ibb.co/zPBYW3H/imgbin-bookmyshow-office-android-ticket-png.png"
               alt="logo"
             />
           </div>

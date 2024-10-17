@@ -44,3 +44,6 @@ Components:
 
     React icons:
     >> npm install react-icons
+
+API key:
+>> 3052f3dd38b04949888d184843802e30
