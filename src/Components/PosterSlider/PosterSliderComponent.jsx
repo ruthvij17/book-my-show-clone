@@ -11,7 +11,7 @@ const PosterSlider = (props) => {
     slidesToShow: 5,
     infinite: true,
     speed: 500,
-    slideToScroll: 4,
+    slidesToScroll: 4,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
@@ -25,10 +25,15 @@ const PosterSlider = (props) => {
         >
           {title}
         </h3>
-        <p clasName={`text-sm ${isDark ? "text-white" : "text-black"}`}>
+        <p className={`text-sm ${isDark ? "text-white" : "text-gray-800"}`}>
           {subtitle}
         </p>
       </div>
+      <Slider {...settings}>
+        {posters.map((each, index) => (
+          <Poster {...each} idDark={isDark} key={index} />
+        ))}
+      </Slider>
     </>
   );
 };

@@ -21,6 +21,27 @@ const HomePage = () => {
     };
     requestTopRatedMovies();
   }, []);
+
+  useEffect(() => {
+    const requestUpcomingMovies = async () => {
+      const getUpcomingMovies = await axios.get(
+        "https://api.themoviedb.org/3/movie/upcoming?api_key=3052f3dd38b04949888d184843802e30"
+      );
+      setpremierMovies(getUpcomingMovies.data.results);
+    };
+    requestUpcomingMovies();
+  }, []);
+
+  useEffect(() => {
+    const requestOnlineStreamMovies = async () => {
+      const getOnlineStreamMovies = await axios.get(
+        "https://api.themoviedb.org/3/movie/popular?api_key=3052f3dd38b04949888d184843802e30"
+      );
+      setonlineStreamEvents(getOnlineStreamMovies.data.results);
+    };
+    requestOnlineStreamMovies();
+  }, []);
+
   return (
     <>
       <HeroCarousel />
@@ -34,7 +55,7 @@ const HomePage = () => {
         <PosterSlider
           title="Recommended Movies"
           subtitle="List of Recommonded Movies"
-          poster={recommendedMovies}
+          posters={recommendedMovies}
           isDark={false}
         />
       </div>
@@ -51,18 +72,18 @@ const HomePage = () => {
           <PosterSlider
             title="Premiers"
             subtitle="Grand new release every friday"
-            poster={premierMovies}
+            posters={premierMovies}
             isDark={true}
           />
         </div>
-        <div className="container mx-auto px-4 md:px-12 my-8 flex flex-col gap-3">
-          <PosterSlider
-            title="Online Streaming events"
-            subtitle="Online Streaming events"
-            poster={onlineStreamEvents}
-            isDark={false}
-          />
-        </div>
+      </div>
+      <div className="container mx-auto px-4 md:px-12 my-8 flex flex-col gap-3">
+        <PosterSlider
+          title="Online Streaming events"
+          subtitle="Online Streaming events"
+          posters={onlineStreamEvents}
+          isDark={false}
+        />
       </div>
     </>
   );
