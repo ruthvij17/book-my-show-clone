@@ -6,13 +6,14 @@ import { MovieContext } from "../context/Movie.Context";
 import Slider from "react-slick";
 import { FaCcVisa, FaCcApplePay } from "react-icons/fa";
 import PosterSlider from "../Components/PosterSlider/PosterSliderComponent";
+import MovieHero from "../Components/Movie Hero/MovieHero.Component";
 
 const MoviePage = (props) => {
   const { title, subtitle, posters, isDark } = props;
 
   const { id } = useParams();
 
-  const [movie, setMovie] = useState([]);
+  const { movie, setMovie } = useContext(MovieContext);
 
   const [cast, setCast] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
@@ -75,7 +76,7 @@ const MoviePage = (props) => {
   };
   return (
     <>
-      {/* <MovieHero /> */}
+      <MovieHero />
       <div className="mx-12 container px-4 lg:w-2/1">
         <div className="flex flex-col items-start gap-3">
           <h1 className="text-gray-800 font-bold gap-3 text-2xl">

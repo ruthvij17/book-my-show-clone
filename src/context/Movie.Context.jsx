@@ -1,13 +1,12 @@
-import { defaults } from "autoprefixer";
 import React, { createContext, useState } from "react";
 
 export const MovieContext = createContext();
 
 const MovieProvider = ({ children }) => {
-  const { movie, setMovie } = useState({
+  const [movie, setMovie] = useState({
     id: 0,
     original_title: "",
-    overview: " ",
+    overview: "",
     backdrop_path: "",
     poster_path: "",
   });
