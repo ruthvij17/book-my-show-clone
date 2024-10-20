@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import { FaCcVisa, FaCcApplePay } from "react-icons/fa";
 import PosterSlider from "../Components/PosterSlider/PosterSliderComponent";
 import MovieHero from "../Components/Movie Hero/MovieHero.Component";
+import Cast from "../Components/Cast/Cast.Component";
 
 const MoviePage = (props) => {
   const { title, subtitle, posters, isDark } = props;
@@ -21,9 +22,7 @@ const MoviePage = (props) => {
 
   useEffect(() => {
     const requestCast = async () => {
-      const getCast = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=3052f3dd38b04949888d184843802e30}`
-      );
+      const getCast = await axios.get(`/movie/${id}/credits`);
       setCast(getCast.data.cast);
     };
     requestCast();
@@ -31,9 +30,7 @@ const MoviePage = (props) => {
 
   useEffect(() => {
     const requestSimilarMovies = async () => {
-      const getSimilarMovies = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/similar?api_key=3052f3dd38b04949888d184843802e30`
-      );
+      const getSimilarMovies = await axios.get(`/movie/${id}/similar`);
       setSimilarMovies(getSimilarMovies.data.results);
     };
     requestSimilarMovies();
@@ -42,7 +39,7 @@ const MoviePage = (props) => {
   useEffect(() => {
     const requestRecommondedMovies = async () => {
       const getRecommondedMovies = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=3052f3dd38b04949888d184843802e30`
+        `/movie/${id}/recommendations`
       );
       setRecommendedMovies(getRecommondedMovies.data.results);
     };
@@ -51,20 +48,42 @@ const MoviePage = (props) => {
 
   useEffect(() => {
     const requireMovie = async () => {
-      const getMovieData = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=3052f3dd38b04949888d184843802e30`
-      );
+      const getMovieData = await axios.get(`/movie/${id}`);
       setMovie(getMovieData.data);
     };
     requireMovie();
   }, [id]);
 
   const settingsCast = {
+    infinite: false,
+    speed: 200,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     arrows: true,
-    slidesToShow: 1,
-    infinite: true,
-    speed: 500,
-    slideToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   const settings = {
@@ -122,11 +141,27 @@ const MoviePage = (props) => {
             </div>
           </div>
         </div>
+
         <div className="my-8">
           <hr />
         </div>
 
-        <div className="my-8">{/* Cast and Crew */}</div>
+        {/* Crew and cast */}
+        <div className="my-8 bg-premier-300 p-5 rounded-md">
+          <h2 className="text-gray-900 font-bold text-2xl mb-4 ">
+            Cast and Crew
+          </h2>
+          <Slider {...settingsCast}>
+            {cast.map((castData, index) => (
+              <Cast
+                image={castData.profile_path}
+                castName={castData.original_name}
+                role={castData.character}
+                key={index}
+              />
+            ))}
+          </Slider>
+        </div>
 
         <div className="my-8">
           <hr />
