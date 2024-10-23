@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
+import SearchPage from "./Pages/SearchPage";
 
 // Pages
 import HomePage from "./Pages/HomePage";
@@ -20,6 +21,7 @@ function App() {
       <Route path="/" element={<HomePage />}></Route>
       <Route path="/movie/:id" element={<MoviePage />}></Route>
       <Route path="/plays" element={<PlayPage />}></Route>
+      <Route path="/search/:info" element={<SearchPage />}></Route>
     </Routes>
   );
 }

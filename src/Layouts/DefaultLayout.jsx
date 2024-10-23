@@ -1,5 +1,7 @@
 import React from "react";
 import NavbarComponent from "../Components/Navbar/NavbarComponent";
+import Appfooter from "../Components/AppFooter/Appfooter.Component";
+
 const DefaultLayout =
   (Component) =>
   ({ ...props }) => {
@@ -7,6 +9,7 @@ const DefaultLayout =
       <div>
         <NavbarComponent />
         <Component {...props} />
+        <Appfooter />
       </div>
     );
   };

@@ -1,12 +1,15 @@
 import React from "react";
-import MovieNavbarComponent from "../Components/Navbar/MovieNavbarComponent";
+import NavbarComponent from "../Components/Navbar/NavbarComponent";
+import Appfooter from "../Components/AppFooter/Appfooter.Component";
+
 const MovieLayout =
   (Component) =>
   ({ ...props }) => {
     return (
       <div>
-        <MovieNavbarComponent />
+        <NavbarComponent />
         <Component {...props} />
+        <Appfooter />
       </div>
     );
   };

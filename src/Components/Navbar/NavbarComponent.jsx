@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiChevronDown, BiMenu, BiSearch } from "react-icons/bi";
+import { Link, useNavigate } from "react-router-dom";
 function NavSm() {
   return (
     <>
@@ -19,36 +20,56 @@ function NavSm() {
   );
 }
 function NavMd() {
+  const [input, setInput] = useState("");
+  const navigate = useNavigate();
   return (
     <>
       <div className="w-10 h-10">
-        <img
-          src="https://i.ibb.co/zPBYW3H/imgbin-bookmyshow-office-android-ticket-png.png"
-          alt="logo"
-          className="w-full h-full"
-        />
+        <Link to={`/`}>
+          <img
+            className="w-full h-full"
+            src="https://i.ibb.co/zPBYW3H/imgbin-bookmyshow-office-android-ticket-png.png"
+            alt="logo"
+          />
+        </Link>
       </div>
       <div className="w-full flex items-center gap-3 bg-white px-3 py-1 rounded-md">
         <BiSearch />
         <input
           type="search"
           className="w-full bg-transparent border-none focus:outline-none"
+          placeholder="Search for movies, events, place, sports and activities"
+          onInput={(e) => setInput(e.target.value.trim())}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              navigate(input === "" ? "" : `/search/${input}`);
+            }
+          }}
         />
+        <Link to={input === "" ? "" : `/search/${input}`}>
+          <button className="w-full h-full text-white bg-red-600 rounded px-2 py-1">
+            Search
+          </button>
+        </Link>
       </div>
     </>
   );
 }
 function NavLg() {
+  const [input, setInput] = useState("");
+  const navigate = useNavigate();
   return (
     <>
       <div className="container flex mx-auto px-4 items-center justify-between">
         <div className="flex items-center w-1/2 gap-3">
           <div className="w-10 h-10">
-            <img
-              className="w-full h-full"
-              src="https://i.ibb.co/zPBYW3H/imgbin-bookmyshow-office-android-ticket-png.png"
-              alt="logo"
-            />
+            <Link to={`/`}>
+              <img
+                className="w-full h-full"
+                src="https://i.ibb.co/zPBYW3H/imgbin-bookmyshow-office-android-ticket-png.png"
+                alt="logo"
+              />
+            </Link>
           </div>
           <div className="w-full flex items-center gap-3 bg-white px-3 py-1 rounded-md">
             <BiSearch />
@@ -56,7 +77,18 @@ function NavLg() {
               type="search"
               className="w-full bg-transparent border-none focus:outline-none"
               placeholder="Search for movies, events, place, sports and activities"
+              onInput={(e) => setInput(e.target.value.trim())}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  navigate(input === "" ? "" : `/search/${input}`);
+                }
+              }}
             />
+            <Link to={input === "" ? "" : `/search/${input}`}>
+              <button className="w-full h-full text-white bg-red-600 rounded px-2 py-1">
+                Search
+              </button>
+            </Link>
           </div>
         </div>
         <div className="flex items-center gap-3 ">
