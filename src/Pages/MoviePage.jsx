@@ -181,6 +181,7 @@ const MoviePage = (props) => {
                 image={castData.profile_path}
                 castName={castData.original_name}
                 role={castData.character}
+                id={castData.id}
                 key={index}
               />
             ))}

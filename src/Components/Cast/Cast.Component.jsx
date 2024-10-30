@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Cast = (props) => {
   return (
-    <>
+    <Link to={`/cast/${props.id}`}>
       <div className="flex flex-col items-center">
         <div className="w-32 h-32">
           <img
@@ -16,7 +17,7 @@ const Cast = (props) => {
         </h1>
         <h4 className="text-base text-gray-700 font-semibold">{props.role}</h4>
       </div>
-    </>
+    </Link>
   );
 };
 

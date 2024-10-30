@@ -10,6 +10,7 @@ import SearchPage from "./Pages/SearchPage";
 import HomePage from "./Pages/HomePage";
 import MoviePage from "./Pages/MoviePage";
 import PlayPage from "./Pages/PlayPage";
+import CastPage from "./Pages/CastPage";
 
 axios.defaults.baseURL = "https://api.themoviedb.org/3";
 axios.defaults.params = {};
@@ -22,6 +23,7 @@ function App() {
       <Route path="/movie/:id" element={<MoviePage />}></Route>
       <Route path="/plays" element={<PlayPage />}></Route>
       <Route path="/search/:info" element={<SearchPage />}></Route>
+      <Route path="/cast/:id" element={<CastPage />}></Route>
     </Routes>
   );
 }
