@@ -6,7 +6,7 @@ import { PrevArrow } from "./ArrowsComponent";
 const HeroCarousel = () => {
   const [images, setImages] = useState([
     {
-      adult: false,
+      adult: true,
       backdrop_path: "/ugS5FVfCI3RV0ZwZtBV3HAV75OX.jpg",
       genre_ids: [16, 878, 28],
       id: 610150,

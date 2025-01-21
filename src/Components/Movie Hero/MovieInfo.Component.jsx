@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { FaJoint } from "react-icons/fa";
 import { MovieContext } from "../../context/Movie.Context";
 import PaymentModel from "../PaymentModel/Payment.Component";
+import { Link } from "react-router-dom";
 
 const MovieInfo = () => {
   const { movie } = useContext(MovieContext);
@@ -20,6 +21,7 @@ const MovieInfo = () => {
     setIsOpen(true);
     setPrice(599);
   };
+
   return (
     <>
       <PaymentModel setIsOpen={setIsOpen} isOpen={isOpen} price={price} />
@@ -50,6 +52,11 @@ const MovieInfo = () => {
           >
             Buy ₹ 599
           </button>
+          <Link to={`/plays/${movie.id}`}>
+            <button className="bg-red-600 w-60 py-3 text-white font-semibold rounded-lg">
+              Watch trailer
+            </button>
+          </Link>
         </div>
       </div>
     </>

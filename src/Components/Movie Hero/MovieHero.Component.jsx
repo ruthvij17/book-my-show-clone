@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { MovieContext } from "../../context/Movie.Context";
 import MovieInfo from "./MovieInfo.Component";
 import PaymentModel from "../PaymentModel/Payment.Component";
+import { Link } from "react-router-dom";
 
 const MovieHero = () => {
   const { movie } = useContext(MovieContext);
@@ -57,6 +58,11 @@ const MovieHero = () => {
             >
               Buy ₹ 599
             </button>
+            <Link to={`/plays/${movie.id}`}>
+              <button className="bg-red-600 w-60 py-3 text-white font-semibold rounded-lg">
+                Watch trailer
+              </button>
+            </Link>
           </div>
         </div>
       </div>

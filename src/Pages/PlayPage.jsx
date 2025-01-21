@@ -1,79 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DefaultLayout from "../Layouts/DefaultLayout";
-
-//Components
-import Poster from "../Components/Poster/PosterComponent";
-import PlayFilters from "../Components/PlayFilters/PlayFilters.Component";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import Slider from "react-slick";
 
 const PlayPage = () => {
+  const [trailer, setTrailer] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const requestTrailer = async () => {
+      const getTrailer = await axios.get(`/movie/${id}/videos`);
+      setTrailer(getTrailer.data.results);
+    };
+    requestTrailer();
+  }, [id]);
+
+  const settings = {
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "60px",
+    slidesToShow: 3,
+    speed: 500,
+  };
+
   return (
     <>
-      <div className="container mx-auto px-4 my-10">
-        <div className="w-full flex flex-col-reverse lg:flex-row-reverse gap-4">
-          <h2 className="text-2xl font-bold mb-4">Plays in Bangalore</h2>
-          <div className="flex flex-wrap">
-            <div className="w-1/2 md:w-1/3 lg:w-3/12 my-3 flex items-center">
-              <Poster
-                isPlay={true}
-                src=""
-                title="So rude of me By sweets"
-                subtitle="comedy shows | English, Kannada | 18+ years | 2h 40 mins"
-              />
-            </div>
-            <div className="w-1/2 md:w-1/3 lg:w-3/12 my-3 flex items-center">
-              <Poster
-                isPlay={true}
-                src=""
-                title="So rude of me By sweets"
-                subtitle="comedy shows | English, Kannada | 18+ years | 2h 40 mins"
-              />
-            </div>
-            <div className="w-1/2 md:w-1/3 lg:w-3/12 my-3 flex items-center">
-              <Poster
-                isPlay={true}
-                src=""
-                title="So rude of me By sweets"
-                subtitle="comedy shows | English, Kannada | 18+ years | 2h 40 mins"
-              />
-            </div>
-            <div className="w-1/2 md:w-1/3 lg:w-3/12 my-3 flex items-center">
-              <Poster
-                isPlay={true}
-                src=""
-                title="So rude of me By sweets"
-                subtitle="comedy shows | English, Kannada | 18+ years | 2h 40 mins"
-              />
-            </div>
-            <div className="w-1/2 md:w-1/3 lg:w-3/12 my-3 flex items-center">
-              <Poster
-                isPlay={true}
-                src=""
-                title="So rude of me By sweets"
-                subtitle="comedy shows | English, Kannada | 18+ years | 2h 40 mins"
-              />
-            </div>
-            <div className="w-1/2 md:w-1/3 lg:w-3/12 my-3 flex items-center">
-              <Poster
-                isPlay={true}
-                src=""
-                title="So rude of me By sweets"
-                subtitle="comedy shows | English, Kannada | 18+ years | 2h 40 mins"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-1/4 p-4 bg-white rounded">
-          <h2 className="text-2xl font-bold mb-4 "> Filters</h2>
-          <div>
-            <PlayFilters
-              title="Date"
-              tags={["Today", "Tomorrow", "This Weekend"]}
-            />
-          </div>
-          <div>
-            <PlayFilters title="Date" tags={["English", "Kannada", "Hindhi"]} />
-          </div>
-        </div>
+      <div className="p-10 slider-container bg-premier-300">
+        <h1 className="text-[rgb(55,55,55)] font-extrabold text-3xl mb-2">
+          Trailers/Teasers/Clips
+        </h1>
+        <Slider {...settings}>
+          {trailer.map((elem) => {
+            return (
+              <a
+                href={`https://www.youtube.com/watch?v=${elem.key}`}
+                target="blank"
+              >
+                <div className="p-2">
+                  <img
+                    src={`https://img.youtube.com/vi/${elem.key}/hqdefault.jpg`}
+                    alt="Not Available"
+                    className="rounded-md"
+                  />
+                  <h1 className="text-lg font-semibold text-[rgb(55,55,55)]">
+                    {elem.name}
+                  </h1>
+                </div>
+              </a>
+            );
+          })}
+        </Slider>
       </div>
     </>
   );
