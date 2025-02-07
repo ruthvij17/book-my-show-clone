@@ -8,7 +8,7 @@ const Cast = (props) => {
         <div className="w-32 h-32">
           <img
             src={`https://image.tmdb.org/t/p/original${props.image}`}
-            alt="photo unavailable"
+            alt="Cast member"
             className="h-full w-full object-center object-cover rounded-full"
           />
         </div>

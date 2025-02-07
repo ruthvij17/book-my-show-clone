@@ -1,8 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
 import Poster from "../Poster/PosterComponent";
-import { NextArrow } from "../HeroCarousel/ArrowsComponent";
-import { PrevArrow } from "../HeroCarousel/ArrowsComponent";
 const PosterSlider = (props) => {
   const { posters, title, subtitle, isDark } = props;
 

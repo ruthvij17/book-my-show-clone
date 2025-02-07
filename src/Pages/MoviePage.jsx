@@ -9,52 +9,38 @@ import PosterSlider from "../Components/PosterSlider/PosterSliderComponent";
 import MovieHero from "../Components/Movie Hero/MovieHero.Component";
 import Cast from "../Components/Cast/Cast.Component";
 
-const MoviePage = (props) => {
-  const { title, subtitle, posters, isDark } = props;
-
+const MoviePage = () => {
   const { id } = useParams();
-
   const { movie, setMovie } = useContext(MovieContext);
 
   const [cast, setCast] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
-  const [recomendedMovies, setRecommendedMovies] = useState([]);
+  const [recommendedMovies, setRecommendedMovies] = useState([]);
 
   useEffect(() => {
-    const requestCast = async () => {
-      const getCast = await axios.get(`/movie/${id}/credits`);
-      setCast(getCast.data.cast);
-    };
-    requestCast();
-  }, [id]);
+    const fetchMovieDetails = async () => {
+      try {
+        const [movieData, castData, similarData, recommendedData] =
+          await Promise.all([
+            axios.get(`/movie/${id}`),
+            axios.get(`/movie/${id}/credits`),
+            axios.get(`/movie/${id}/similar`),
+            axios.get(`/movie/${id}/recommendations`),
+          ]);
 
-  useEffect(() => {
-    const requestSimilarMovies = async () => {
-      const getSimilarMovies = await axios.get(`/movie/${id}/similar`);
-      setSimilarMovies(getSimilarMovies.data.results);
+        setMovie(movieData.data);
+        setCast(castData.data.cast);
+        setSimilarMovies(similarData.data.results);
+        setRecommendedMovies(recommendedData.data.results);
+      } catch (error) {
+        console.error("Error fetching movie details:", error);
+      }
     };
-    requestSimilarMovies();
-  }, [id]);
 
-  useEffect(() => {
-    const requestRecommondedMovies = async () => {
-      const getRecommondedMovies = await axios.get(
-        `/movie/${id}/recommendations`
-      );
-      setRecommendedMovies(getRecommondedMovies.data.results);
-    };
-    requestRecommondedMovies();
-  }, [id]);
+    fetchMovieDetails();
+  }, [id, setMovie]);
 
-  useEffect(() => {
-    const requireMovie = async () => {
-      const getMovieData = await axios.get(`/movie/${id}`);
-      setMovie(getMovieData.data);
-    };
-    requireMovie();
-  }, [id]);
-
-  const settingsCast = {
+  const sharedSliderSettings = {
     infinite: false,
     speed: 200,
     slidesToShow: 6,
@@ -62,61 +48,12 @@ const MoviePage = (props) => {
     arrows: true,
     initialSlide: 0,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
+      { breakpoint: 1024, settings: { slidesToShow: 4, slidesToScroll: 3 } },
+      { breakpoint: 600, settings: { slidesToShow: 3, slidesToScroll: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
     ],
   };
 
-  const settings = {
-    arrows: true,
-    slidesToShow: 1,
-    infinite: true,
-    speed: 500,
-    slideToScroll: 1,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   return (
     <>
       <MovieHero />
@@ -138,10 +75,8 @@ const MoviePage = (props) => {
           </h2>
           <div className="flex flex-col gap-3 lg:flex-row">
             <div className="flex items-start gap-2 bg-yellow-100 p-3 border-yellow-400 border-dashed border-2 rounded-md">
-              <div className="w-8 h-8">
-                <FaCcVisa className="w-full h-full" />
-              </div>
-              <div className="flex flex-col items-start">
+              <FaCcVisa className="w-8 h-8" />
+              <div>
                 <h3 className="text-gray-700 text-xl font-bold">
                   Visa Stream Offer
                 </h3>
@@ -152,10 +87,8 @@ const MoviePage = (props) => {
               </div>
             </div>
             <div className="flex items-start gap-2 bg-yellow-100 p-3 border-yellow-400 border-dashed border-2 rounded-md">
-              <div className="w-8 h-8">
-                <FaCcApplePay className="w-full h-full" />
-              </div>
-              <div className="flex flex-col items-start">
+              <FaCcApplePay className="w-8 h-8" />
+              <div>
                 <h3 className="text-gray-700 text-xl font-bold">Film Pass</h3>
                 <p className="text-gray-600">
                   Get 50% off up to INR 150 on all RuPay Card* on BookMyShow
@@ -166,57 +99,41 @@ const MoviePage = (props) => {
           </div>
         </div>
 
-        <div className="my-8">
-          <hr />
-        </div>
-
-        {/* Crew and cast */}
         <div className="my-8 bg-premier-300 p-5 rounded-md">
-          <h2 className="text-gray-900 font-bold text-2xl mb-4 ">
+          <h2 className="text-gray-900 font-bold text-2xl mb-4">
             Cast and Crew
           </h2>
-          <Slider {...settingsCast}>
-            {cast.map((castData, index) => (
-              <Cast
-                image={castData.profile_path}
-                castName={castData.original_name}
-                role={castData.character}
-                id={castData.id}
-                key={index}
-              />
-            ))}
+          <Slider {...sharedSliderSettings}>
+            {cast.length > 0 ? (
+              cast.map((castData, index) => (
+                <Cast
+                  image={castData.profile_path}
+                  castName={castData.original_name}
+                  role={castData.character}
+                  id={castData.id}
+                  key={index}
+                />
+              ))
+            ) : (
+              <p className="text-center text-gray-500">
+                No cast information available.
+              </p>
+            )}
           </Slider>
         </div>
 
-        <div className="my-8">
-          <hr />
-        </div>
-
-        <div className="my-8">
-          {/* Recommonded Movies */}
-          <PosterSlider
-            title="Recommonded Movies"
-            posters={recomendedMovies}
-            isDark={false}
-            config={settings}
-          />
-        </div>
-        <div className="my-8">
-          <hr />
-        </div>
-
-        <div className="my-8">
-          {/* Exclusive Movies */}
-          <PosterSlider
-            title="BMS Xclusive"
-            posters={similarMovies}
-            isDark={false}
-            config={settings}
-          />
-        </div>
-        <div className="my-8">
-          <hr />
-        </div>
+        <PosterSlider
+          title="Recommended Movies"
+          posters={recommendedMovies}
+          isDark={false}
+          config={sharedSliderSettings}
+        />
+        <PosterSlider
+          title="BMS Xclusive"
+          posters={similarMovies}
+          isDark={false}
+          config={sharedSliderSettings}
+        />
       </div>
     </>
   );

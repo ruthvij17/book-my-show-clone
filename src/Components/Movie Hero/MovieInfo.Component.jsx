@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { FaJoint } from "react-icons/fa";
 import { MovieContext } from "../../context/Movie.Context";
 import PaymentModel from "../PaymentModel/Payment.Component";
 import { Link } from "react-router-dom";

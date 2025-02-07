@@ -4,7 +4,7 @@ import { NextArrow } from "./ArrowsComponent";
 import { PrevArrow } from "./ArrowsComponent";
 
 const HeroCarousel = () => {
-  const [images, setImages] = useState([
+  const [images] = useState([
     {
       adult: true,
       backdrop_path: "/ugS5FVfCI3RV0ZwZtBV3HAV75OX.jpg",
@@ -106,18 +106,7 @@ const HeroCarousel = () => {
     autoplay: true,
     autoplaySpeed: 2000,
   };
-  const settings = {
-    dots: true,
-    arrows: true,
-    slidesToShow: 1,
-    infinite: true,
-    speed: 500,
-    slideToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    autoplay: true,
-    autoplaySpeed: 2000,
-  };
+  
   return (
     <>
       <div className="lg:hidden">
